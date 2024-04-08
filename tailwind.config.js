@@ -1,16 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  purge: [
+    // ... your project files, eg.:
+    // './index.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}',
+    './vueform.config.js', // or where `vueform.config.js` is located. Change `.js` to `.ts` if required.
+    './node_modules/@vueform/vueform/themes/tailwind/**/*.vue',
+    './node_modules/@vueform/vueform/themes/tailwind/**/*.js'
+  ],
   theme: {
-    boxShadow:{
-      base: "box-shadow: 4px 4px 0 0 #000"
+    boxShadow: {
+      base: 'box-shadow: 4px 4px 0 0 #000'
     },
     extend: {
-      fontFamily:{
-        sans: [ 'Archivo', 'Helvetica' , 'sans-serif']
+      fontFamily: {
+        sans: ['Archivo', 'Helvetica', 'sans-serif']
       }
-    },
+    }
   },
-  plugins: [],
+  plugins: [require('@vueform/vueform/tailwind')]
 }
-

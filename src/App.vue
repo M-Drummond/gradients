@@ -3,8 +3,6 @@
 import { ref, computed, watch } from 'vue';
 import { useGradientStore } from '@/stores/GradientStore.ts'
 
-import Vueform from '@vueform/vueform'
-import vueformConfig from './../vueform.config'
 
 const gs = useGradientStore();
 
@@ -62,7 +60,11 @@ const styleObject = computed(() => ({
           <p class="">
             Repeat
           </p>
-          <input v-model="repeating" type="checkbox" />
+
+          <Vueform>
+            <input v-model="repeating" type="checkbox" />
+
+          </Vueform>
 
           <!-- {{ angle }} -->
           <!-- <Slider v-model="value" /> -->
