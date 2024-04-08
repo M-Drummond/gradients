@@ -6,15 +6,11 @@ import { useGradientStore } from '@/stores/GradientStore.ts'
 import Vueform from '@vueform/vueform'
 import vueformConfig from './../vueform.config'
 
-
 const gs = useGradientStore();
 
 console.log(gs)
 
 import Slider from '@vueform/slider'
-
-import CheckBoxElement from '@vueform/checkbox'
-
 
 
 const repeating = ref(false)
