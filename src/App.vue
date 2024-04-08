@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { useGradientStore } from '@/stores/GradientStore.ts'
 
 
@@ -10,16 +10,15 @@ console.log(gs)
 
 import Slider from '@vueform/slider'
 
-
 const repeating = ref(false)
 
 const radialMode = ref(true)
 
 const midpoint = ref(33)
 
-const startColour = ref("#ff0000")
+const startColour = ref("#bef3fe")
 
-const endColour = ref("#00ff00")
+const endColour = ref("#b3ff80")
 
 const angle = ref(145)
 
@@ -49,6 +48,16 @@ function copy(x) {
   }, 1500);
 }
 
+const presetColours = [
+  "#b3ff80", '#d36fc5', '#bef3fe', '#c79adf', '#f9b4c5', '#f9edb4', '#e2bcfb', '#7f6fd3', '#b6f7b5', '#b6d7f7', '#1c8cfd'
+]
+
+onMounted(() => {
+  const randStart = presetColours[Math.round(Math.random() * 10)]
+  const randEnd = presetColours[Math.round(Math.random() * 10)]
+  startColour.value = randStart
+  endColour.value = randEnd
+})
 </script>
 
 <template>
@@ -58,7 +67,8 @@ function copy(x) {
       Gradient
       Generator
     </header>
-    <main class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-black xl:max-w-screen-xl border-x shadow-main ">
+    <main
+      class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-b border-black rounded-bl-8 xl:max-w-screen-xl border-x shadow-main ">
 
       <div id="preview" :style="styleObject" class="border border-8 border-black">
         <div class="relative z-20 ">
