@@ -34,7 +34,7 @@ const styleObject = computed(() => {
     };
   } else {
     return {
-      background: `radial-gradient(${startColour.value} ${midpoint.value}%, ${endColour.value})`
+      background: `${repeating.value ? 'repeating-' : ''}radial-gradient(${startColour.value} ${midpoint.value}%, ${endColour.value})`
     };
   }
 });
@@ -52,7 +52,7 @@ function copy(x) {
 </script>
 
 <template>
-  <div class="h-full min-h-screen px-2 pt-2 md:px-0 frame" :style="styleObject">
+  <div class="h-full min-h-screen px-2 pt-2 pb-8 md:px-0 frame" :style="styleObject">
     <header
       class="p-4 mx-auto mt-8  font-sans font-bold tracking-wider text-center border-white text-black uppercase bg-white border-t-8 rounded-t-[10px]  text-x xl:max-w-screen-xl xl:border-x-8 xl:border-white shadow-main lg:text-2xl">
       Gradient
@@ -73,14 +73,14 @@ function copy(x) {
       </div>
       <div id="ui-panel" class="flex flex-col bg-white border-b-8 md:flex-row border-b-white">
 
-        <div class="top-0 z-20 flex flex-col w-full p-8 pb-12 space-y-12 ">
+        <div class="top-0 z-20 flex flex-col order-last w-full p-8 pb-12 space-y-12 md:order-1">
           <div v-show="radialMode">
             <p class="">
               Angle
             </p>
             <Slider class="slider" v-model="angle" :max="360" :lazy="false" />
           </div>
-          <div v-show="radialMode">
+          <div>
             <p class="">
               midpoint
             </p>
@@ -89,7 +89,7 @@ function copy(x) {
               Repeat
             </p>
           </div>
-          <button v-show="radialMode" @click=" repeating = !repeating" class="flex flex-row items-center">
+          <button @click=" repeating = !repeating" class="flex flex-row items-center">
             <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
               <transition>
                 <svg v-show="repeating" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -121,7 +121,7 @@ function copy(x) {
         </div>
 
         <div
-          class="relative min-h-[150px] md:min-h-[250px] z-20 flex flex-col w-full bg-white border-white border-solid border-x-8 ">
+          class="relative min-h-[150px] md:min-h-[250px] z-20 flex flex-col w-full bg-white border-white border-solid md:border-x-8 ">
           <button @click="copy(startColour)" class="copy-button" v-text="startColour"></button>
           <input v-model="startColour" type="color" value="#ff0000" class="colorPicker" />
           <!-- {{ angle }} -->
@@ -138,9 +138,9 @@ function copy(x) {
 
       </div>
     </main>
-    <div class="fixed bottom-0 w-full h-24 overflow-hidden">
+    <div class="fixed bottom-0 z-50 w-full h-24 overflow-hidden">
       <div id="notifications" :class="notificationVisible ? 'translate-y-0' : 'translate-y-[150%]'"
-        class="absolute px-4 py-2 font-bold transition-all bg-white shadow-base rounded-xl bottom-4 right-4">
+        class="absolute px-4 py-2 text-xs font-bold transition-all bg-white border border-black shadow-base rounded-xl bottom-4 right-4">
         {{ lastCopied }} Copied to Clipboard
       </div>
     </div>
@@ -164,6 +164,11 @@ function copy(x) {
   /* left: -2%; */
   height: 100%;
   width: 100%;
+  appearance: auto;
+  background-color: transparent;
+  border: initial;
+  outline: initial;
+  color: initial;
 }
 
 .shadow-base {
@@ -190,7 +195,7 @@ root {
 }
 
 .copy-button {
-  @apply absolute z-30 p-2 bg-white rounded-lg left-4 top-4 hover:bg-black hover:text-white transition-all;
+  @apply absolute z-30 p-2 border border-black border-solid bg-white rounded-lg left-4 top-4 hover:bg-black hover:text-white transition-all;
 }
 
 .copy-button:not(:active) {
