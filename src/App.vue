@@ -52,17 +52,16 @@ function copy(x) {
 </script>
 
 <template>
-  <div class="h-full min-h-screen px-2 pt-2 pb-8 md:px-0 frame" :style="styleObject">
+  <div class="h-full min-h-screen px-2 pt-2 pb-8 font-sans font-bold md:px-0 frame" :style="styleObject">
     <header
-      class="p-4 mx-auto mt-8  font-sans font-bold tracking-wider text-center border-white text-black uppercase bg-white border-t-8 rounded-t-[10px]  text-x xl:max-w-screen-xl xl:border-x-8 xl:border-white shadow-main lg:text-2xl">
+      class="p-4 mx-auto mt-8 font-sans font-bold tracking-wider text-center text-black uppercase bg-white border-t border-black border-x text-x xl:max-w-screen-xl shadow-main lg:text-2xl">
       Gradient
       Generator
     </header>
-    <main
-      class="mx-auto font-sans font-bold xl:max-w-screen-xl xl:border-x-8 xl:border-white shadow-main  rounded-b-[10px] ">
+    <main class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-black xl:max-w-screen-xl border-x shadow-main ">
 
-      <div id="preview" :style="styleObject">
-        <div class="relative z-20 bg-white border-b-8 border-white border-solid ">
+      <div id="preview" :style="styleObject" class="border border-8 border-black">
+        <div class="relative z-20 ">
           <button @click="copy(styleObject)" class="absolute right-0 mr-5 ml-auto left-auto mt-4 w-[120px] copy-button"
             v-text="'Copy CSS'" />
         </div>
@@ -71,64 +70,63 @@ function copy(x) {
         class="p-4 font-mono font-normal text-white bg-gray-900 border-white border-solid border-y-8">
 
       </div>
-      <div id="ui-panel" class="flex flex-col bg-white border-b-8 md:flex-row border-b-white">
+      <div id="ui-panel" class="flex flex-col mb-4 bg-white border-b-8 border-black md:flex-row">
 
-        <div class="top-0 z-20 flex flex-col order-last w-full p-8 pb-12 space-y-12 md:order-1">
-          <div v-show="radialMode">
-            <p class="">
+        <div class="top-0 z-20 flex flex-col order-last w-full md:order-1">
+          <div class="px-8 pb-4 border-t-8 border-black border-solid border-x-8">
+            <p class="py-4 mb-12 ">
               Angle
             </p>
-            <Slider class="slider" v-model="angle" :max="360" :lazy="false" />
+            <Slider class="slider" v-model="angle" :disabled="!radialMode" :max="360" :lazy="false" />
           </div>
-          <div>
-            <p class="">
-              midpoint
+          <div class="px-8 pb-8 border-b-8 border-black border-solid border-x-8">
+            <p class="mb-12">
+              Midpont
             </p>
             <Slider v-model="midpoint" :max="100" :lazy="false" />
-            <p class="">
-              Repeat
-            </p>
+
           </div>
-          <button @click=" repeating = !repeating" class="flex flex-row items-center">
-            <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
-              <transition>
-                <svg v-show="repeating" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="1.5" stroke="currentColor" class="relative top-[-2px] left-[-2px] w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                </svg>
-              </transition>
+          <div class="flex flex-col px-4 pt-4 pb-8 mb-0 space-y-8 border-black border-solid border-x-8">
+            <p>Config:</p>
+            <button @click=" repeating = !repeating" class="flex flex-row items-center">
+              <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
+                <transition>
+                  <svg v-show="repeating" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="relative top-[-2px] left-[-2px] w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                  </svg>
+                </transition>
 
-            </div>
-            <span v-text="'Repeat Gradient'"></span>
-          </button>
+              </div>
+              <span v-text="'Repeat Gradient'"></span>
+            </button>
+            <button @click=" radialMode = !radialMode" class="flex flex-row items-center">
+              <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
+                <transition>
+                  <svg v-show="!radialMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="relative top-[-2px] left-[-2px] w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                  </svg>
+                </transition>
 
+              </div>
+              <span v-text="'Radial Mode'"></span>
 
-          <button @click=" radialMode = !radialMode" class="flex flex-row items-center">
-            <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
-              <transition>
-                <svg v-show="!radialMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                  stroke-width="1.5" stroke="currentColor" class="relative top-[-2px] left-[-2px] w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                </svg>
-              </transition>
-
-            </div>
-            <span v-text="'Radial Mode'"></span>
-          </button>
-
+            </button>
+          </div>
           <!-- {{ angle }} -->
           <!-- <Slider v-model="value" /> -->
         </div>
 
         <div
-          class="relative min-h-[150px] md:min-h-[250px] z-20 flex flex-col w-full bg-white border-white border-solid md:border-x-8 ">
+          class="relative min-h-[150px] md:min-h-[250px] z-20 flex flex-col w-full bg-white border-black border-solid md:border-x-8 md:border-t-8">
           <button @click="copy(startColour)" class="copy-button" v-text="startColour"></button>
           <input v-model="startColour" type="color" value="#ff0000" class="colorPicker" />
           <!-- {{ angle }} -->
           <!-- <Slider v-model="value" /> -->
         </div>
 
-        <div class="relative min-h-[150px] md:min-h-[250px] z-20 flex flex-col w-full ">
+        <div class="relative min-h-[150px] md:min-h-[250px] z-20 flex flex-col w-full md:border-t-8 border-black">
           <button @click="copy(endColour)" class="copy-button" v-text="endColour">
           </button>
           <input v-model="endColour" type="color" value="#00ff00" class="colorPicker" />
@@ -139,8 +137,9 @@ function copy(x) {
       </div>
     </main>
     <div class="fixed bottom-0 z-50 w-full h-24 overflow-hidden">
-      <div id="notifications" :class="notificationVisible ? 'translate-y-0' : 'translate-y-[150%]'"
-        class="absolute px-4 py-2 text-xs font-bold transition-all bg-white border border-black shadow-base rounded-xl bottom-4 right-4">
+      <div @click="notificationVisible = false" id="notifications"
+        :class="notificationVisible ? 'translate-y-0' : 'translate-y-[150%]'"
+        class="absolute px-4 py-2 text-xs font-bold transition-all bg-white border border-black cursor-pointer shadow-base rounded-xl bottom-4 right-4">
         {{ lastCopied }} Copied to Clipboard
       </div>
     </div>

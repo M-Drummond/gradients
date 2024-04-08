@@ -13,3 +13,9 @@ body {
   font-family: 'Archivo';
   background: purple;
 }
+
+:root {
+  --slider-connect-bg: #000;
+  --slider-tooltip-bg: #000;
+  --slider-handle-ring-color: #000;
+}
