@@ -12,7 +12,8 @@ import Slider from '@vueform/slider'
 
 const repeating = ref(false)
 
-const radialMode = ref(true)
+
+const mode = ref<string>('linear')
 
 const midpoint = ref(33)
 
@@ -27,16 +28,21 @@ const notificationVisible = ref(false)
 const lastCopied = ref("")
 
 const styleObject = computed(() => {
-  if (radialMode.value) {
+  if (mode.value === 'linear') {
     return {
       background: `${repeating.value ? 'repeating-' : ''}linear-gradient(${angle.value}deg, ${startColour.value} ${midpoint.value}%, ${endColour.value})`
     };
-  } else {
+  } else if (mode.value === 'radial') {
     return {
       background: `${repeating.value ? 'repeating-' : ''}radial-gradient(${startColour.value} ${midpoint.value}%, ${endColour.value})`
     };
+  } else {
+    return {
+      background: `${repeating.value ? 'repeating-' : ''}conic-gradient(${startColour.value} , ${endColour.value})`
+    };
   }
 });
+
 
 function copy(x) {
   console.log(x)
@@ -65,7 +71,7 @@ onMounted(() => {
     <header
       class="p-4 mx-auto mt-8 font-sans font-bold tracking-wider text-center text-black uppercase bg-white border-t border-black border-x text-x xl:max-w-screen-xl shadow-main lg:text-2xl">
       Gradient
-      Generator
+      Generator {{ mode }}
     </header>
     <main
       class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-b border-black rounded-bl-8 xl:max-w-screen-xl border-x shadow-main ">
@@ -87,7 +93,7 @@ onMounted(() => {
             <p class="py-4 mb-12 ">
               Angle
             </p>
-            <Slider class="slider" v-model="angle" :disabled="!radialMode" :max="360" :lazy="false" />
+            <Slider class="slider" v-model="angle" :max="360" :lazy="false" />
           </div>
           <div class="px-8 pb-8 border-b-8 border-black border-solid border-x-8">
             <p class="mb-12">
@@ -110,17 +116,43 @@ onMounted(() => {
               </div>
               <span v-text="'Repeat Gradient'"></span>
             </button>
-            <button @click=" radialMode = !radialMode" class="flex flex-row items-center">
+            <button @click="mode = 'linear'" class="flex flex-row items-center">
               <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
-                <transition>
+                <!-- <transition>
                   <svg v-show="!radialMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" class="relative top-[-2px] left-[-2px] w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
-                </transition>
+                </transition> -->
 
               </div>
-              <span v-text="'Radial Mode'"></span>
+              <span>Linear</span>
+
+            </button>
+            <button @click="mode = 'radial'" class="flex flex-row items-center">
+              <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
+                <!-- <transition>
+                  <svg v-show="!radialMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="relative top-[-2px] left-[-2px] w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                  </svg>
+                </transition> -->
+
+              </div>
+              <span>Radial</span>
+
+            </button>
+            <button @click="mode = 'conic'" class="flex flex-row items-center">
+              <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
+                <!-- <transition>
+                  <svg v-show="!radialMode" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="relative top-[-2px] left-[-2px] w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                  </svg>
+                </transition> -->
+
+              </div>
+              <span>conical</span>
 
             </button>
           </div>
