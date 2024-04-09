@@ -7,15 +7,14 @@ import Slider from '@vueform/slider'
 
 const gs = useGradientStore()
 const stops = gs.stops
-const addStop = gs.addStop
-const removeStop = gs.removeStop
+const addStop = gs.addStop 
 </script>
 
 <template>
   <div class="flex flex-col w-full px-4 mb-4 border-8 border-black md:mr-4">
     <div v-for="stop in stops" :key="stop.colour" class="relative py-1 overflow-hidden group">
       <div class="relative h-[100px] w-full">
-        <input @click="gs.activatePicker(stop)" :value="stop.colour" type="color" class="colorPicker" />
+        <input :value="stop.colour" type="color" class="colorPicker" />
 
       </div>
 

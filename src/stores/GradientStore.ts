@@ -12,21 +12,15 @@ export const useGradientStore = defineStore('gradient', {
       stops: ref([
         {
           colour: getRandColour(),
-          pos: 0,
-          pickerActive: false,
-          pickerDisabled: false
+          pos: 0
         },
         {
           colour: getRandColour(),
-          pos: 33,
-          pickerActive: false,
-          pickerDisabled: false
+          pos: 33
         },
         {
           colour: getRandColour(),
-          pos: 66,
-          pickerActive: false,
-          pickerDisabled: false
+          pos: 66
         }
       ])
     }
@@ -35,13 +29,6 @@ export const useGradientStore = defineStore('gradient', {
     setMode(selectedMode: string) {
       console.log(selectedMode)
       this.mode = selectedMode
-    },
-    activatePicker(stop: Stop) {
-      this.stops.forEach((p) => {
-        if (p !== stop) {
-          p.pickerDisabled = true
-        }
-      })
     },
     removeStop(stop: Stop) {
       const index = this.stops.findIndex((e) => e === stop)
@@ -58,8 +45,7 @@ export const useGradientStore = defineStore('gradient', {
     addStop() {
       const newStop: Stop = {
         colour: getRandColour() as string,
-        pos: this.getMinPos() as number,
-        pickerActive: false
+        pos: this.getMinPos() as number
       }
       this.stops.push(newStop)
     }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { copy } from '@/utils/Copy.ts'
+import { copy } from '@/utils/Copy'
 
 defineProps({
   css: {
