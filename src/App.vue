@@ -12,7 +12,6 @@ import Slider from '@vueform/slider'
 
 const repeating = ref(false)
 
-
 const mode = ref<string>('linear')
 
 const midpoint = ref(33)
@@ -126,39 +125,47 @@ function addStop() {
 <template>
 
 
-  <div class="h-full min-h-screen px-2 pt-2 pb-8 font-sans font-bold md:px-0 frame" :style="styleObject">
+  <div class="h-full min-h-screen px-2 pb-8 font-sans font-bold md:pt-2 md:px-0 frame" :style="styleObject">
     <header
-      class="p-4 mx-auto mt-8 font-sans font-black tracking-widest xl:tracking-[20px] tracking-widest text-center text-black uppercase bg-white border-t border-black width border-x text-x xl:max-w-screen-xl shadow-main lg:text-2xl">
+      class="p-4 mx-auto pt-2 md:mt-8 font-sans font-black   xl:tracking-[20px] tracking-widest text-center text-black uppercase bg-white border-t border-black width border-x text-x xl:max-w-screen-xl shadow-main lg:text-2xl">
       Gradient
       Generator
     </header>
     <main
-      class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-black s rounded-bl-8 xl:max-w-screen-xl border-x shadow-main ">
+      class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-b border-black rounded-bl-8 xl:max-w-screen-xl border-x shadow-main ">
 
-      <div id="preview" :style="styleObject" class="sticky top-0 z-50 border border-8 border-black">
-        <div class="relative z-20 ">
-          <button @click="copy(styleObject)" class="absolute right-0 mr-5 ml-auto left-auto mt-4 w-[120px] copy-button"
-            v-text="'Copy CSS'" />
+      <div class="sticky top-0 z-50 bg-white">
+        <div id="preview" :style="styleObject" class="border border-8 border-black ">
+          <div class="relative z-20 ">
+            <button @click="copy(styleObject)"
+              class="absolute right-0 mr-2 md:mr-5 ml-auto left-auto mt-[-10px] md:mt-4 md:w-[120px] copy-button"
+              v-text="'Copy CSS'" />
+          </div>
         </div>
-      </div>
-      <div v-text="styleObject" id="code"
-        class="p-4 font-mono font-normal text-white bg-gray-900 border-white border-solid border-y-8">
+
+        <div v-text="styleObject" id="code"
+          class="p-4 font-mono text-xs font-normal text-white bg-gray-900 border-white border-solid sm:text-base border-y-8">
+
+        </div>
+
 
       </div>
-      <div id="ui-panel" class="flex flex-col mb-4 bg-white border-b-8 border-black md:flex-row">
+
+
+      <div id="ui-panel" class="flex flex-col items-stretch mb-4 bg-white border-black md:flex-row">
 
         <div class="top-0 z-20 flex flex-col order-last w-full md:order-1">
-          <div class="px-8 pb-4 border-8 border-black border-solid ">
+          <div class="px-4 pb-4 border-8 border-black border-solid ">
             <div :class="mode === 'conic' ? 'opacity-50 pointer-events-none' : ''">
               <p class="py-4 mb-12 ">
                 Angle
               </p>
-              <Slider class="slider" v-model="angle" :max="360" :lazy="false" />
+              <Slider showTooltip="'focus'" class="slider" v-model="angle" :max="360" :lazy="false" />
             </div>
           </div>
 
-          <div class="flex flex-col px-4 pt-4 pb-8 mb-0 space-y-8 border-b-8 border-black border-solid border-x-8">
-            <p>Config:</p>
+          <div class="flex flex-col px-4 py-8 mb-0 space-y-8 border-b-8 border-black border-solid border-x-8">
+
             <button @click=" repeating = !repeating" class="flex flex-row items-center">
               <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
                 <transition>
@@ -189,23 +196,30 @@ function addStop() {
               </button>
             </div>
           </div>
+          <p class="mt-4 text-xs text-right"> &copy; MD {{ new Date().getFullYear() }} </p>
         </div>
 
-        <div class="flex flex-col w-full px-8">
-          <div v-for="stop in  stops" class="relative py-1">
+        <div class="flex flex-col w-full px-4 mb-4 border-8 border-black md:mr-4">
+          <div v-for="stop in  stops" :key="stop.colour" class="relative py-1 overflow-hidden group">
 
             <div class="relative h-[200px] w-full">
               <input v-model="stop.colour" type="color" class="colorPicker" />
             </div>
 
-            <div class="py-4">
-              <Slider v-model="stop.pos" :max="100" :lazy="false" />
+            <div class="p-4">
+              <Slider showTooltip="'focus'" v-model="stop.pos" :max="100" :lazy="false" />
             </div>
 
-            <button @click="copy(stop.colour)" class="copy-button" v-text="stop.colour">
+            <button @click="copy(stop.colour)" class="copy-button left-[-25%] group-hover:left-4" v-text="stop.colour">
             </button>
 
-            <button @click="removeStop(stop)" class="remove-button">Remove
+            <button v-if="stops.length >= 1" @click="removeStop(stop)"
+              class="remove-button   right-[-15%] group-hover:right-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+
             </button>
 
           </div>
@@ -229,12 +243,18 @@ function addStop() {
 
 <style scoped>
 #preview {
-  min-height: 250px;
+  min-height: 125px;
   width: 100%;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+@media screen and (min-width: 960px) {
+  #preview {
+    min-height: 250px;
+  }
 }
 
 .colorPicker {
@@ -263,10 +283,8 @@ function addStop() {
   box-shadow: 7px 7px 0px rgba(0, 0, 0, .85);
 }
 
-
-
 .copy-button {
-  @apply absolute z-30 p-2 border border-black border-solid bg-white rounded-lg left-4 top-4 hover:bg-black hover:text-white transition-all;
+  @apply absolute z-30 p-2 border border-black border-solid bg-white rounded-lg top-4 hover:bg-black hover:text-white transition-all;
 }
 
 .copy-button:not(:active) {
@@ -275,6 +293,7 @@ function addStop() {
 
 button {
   transition: all;
+  @apply text-xs md:text-base
 }
 
 button:active {
@@ -284,7 +303,8 @@ button:active {
 
 
 .add-button {
-  @apply border border-black py-2 shadow-base my-4 border-solid bg-black rounded-lg left-4 top-4 hover:bg-white hover:text-black text-white transition-all
+  @apply border border-black py-2 shadow-base my-4 border-solid bg-black rounded-lg left-4 top-4 hover:bg-white hover:text-black text-white transition-all;
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, .5)
 }
 
 .mode-button {
@@ -294,6 +314,10 @@ button:active {
 .mode-button.active {
   @apply bg-black text-white;
   box-shadow: 4px 4px 0 0 rgba(0, 0, 0, .5)
+}
+
+.remove-button {
+  @apply top-4 bg-white p-1 border border-black shadow-base rounded-lg absolute transition-all
 }
 </style>
 
