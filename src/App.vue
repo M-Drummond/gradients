@@ -91,7 +91,7 @@ export function getRandColour() {
         <CodePanel :css :styleObject />
       </div>
 
-      <div id="ui-panel" class="flex flex-col items-stretch mb-4 bg-white border-black md:flex-row">
+      <div id="ui-panel" class="flex flex-col items-stretch mb-4 bg-white border-black select-none md:flex-row">
         <div class="top-0 z-20 flex flex-col order-last w-full md:order-1">
           <div class="px-4 pb-4 border-8 border-black border-solid">
             <div :class="gs.mode === 'conic' ? 'opacity-50 pointer-events-none' : ''">
