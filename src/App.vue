@@ -20,20 +20,31 @@ const angle = ref(145)
 const styleObject = computed(() => {
   if (gs.mode === 'linear') {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}linear-gradient(${angle.value}deg, ${stopsAsString.value})`
+      'background': `${repeating.value ? 'repeating-' : ''}linear-gradient(${angle.value}deg, ${stopsAsString.value})`
     }
   } else if (gs.mode === 'radial') {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}radial-gradient(${stopsAsString.value})`
+      'background': `${repeating.value ? 'repeating-' : ''}radial-gradient(${stopsAsString.value})`
     }
   } else if (gs.mode === 'conic') {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}conic-gradient(${stopsAsStringConic.value})`
+      'background': `${repeating.value ? 'repeating-' : ''}conic-gradient(${stopsAsStringConic.value})`
     }
   }
-
   return {}
 })
+
+const css = computed(() => {
+  if (gs.mode === 'linear') {
+    return `${repeating.value ? 'repeating-' : ''}linear-gradient(${angle.value}deg, ${stopsAsString.value})`;
+  } else if (gs.mode === 'radial') {
+    return `${repeating.value ? 'repeating-' : ''}radial-gradient(${stopsAsString.value})`;
+  } else if (gs.mode === 'conic') {
+    return `${repeating.value ? 'repeating-' : ''}conic-gradient(${stopsAsStringConic.value})`;
+  }
+  return ''; // Return empty string for invalid mode
+});
+
 
 const stopsAsString = computed(() => {
   return stops.map((stop) => ` ${stop.colour} ${stop.pos}%`)
@@ -66,7 +77,7 @@ export function getRandColour() {
   return presetColours[Math.round(Math.random() * 10)].toString()
 }
 
-export function copy(x) {
+export function copy(x: string) {
   console.log(x)
   navigator.clipboard.writeText(x)
   notificationVisible.value = true
@@ -78,19 +89,15 @@ export function copy(x) {
 </script>
 
 <template>
-  <div
-    class="h-full min-h-screen px-2 pb-8 font-sans font-bold md:pt-2 md:px-0 frame"
-    :style="styleObject"
-  >
+  <div class="h-full min-h-screen px-2 pb-8 font-sans font-bold md:pt-2 md:px-0 frame" :style="styleObject">
     <AppHeader />
 
     <main
-      class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-b border-black rounded-bl-8 xl:max-w-screen-xl border-x shadow-main"
-    >
+      class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-b border-black rounded-bl-8 xl:max-w-screen-xl border-x shadow-main">
       <div class="sticky top-0 z-50 bg-white">
-        <PreviewPanel :styleObject />
+        <PreviewPanel :styleObject :css />
 
-        <CodePanel :styleObject />
+        <CodePanel :css />
       </div>
 
       <div id="ui-panel" class="flex flex-col items-stretch mb-4 bg-white border-black md:flex-row">
@@ -98,38 +105,17 @@ export function copy(x) {
           <div class="px-4 pb-4 border-8 border-black border-solid">
             <div :class="gs.mode === 'conic' ? 'opacity-50 pointer-events-none' : ''">
               <p class="py-4 mb-12">Angle</p>
-              <Slider
-                showTooltip="'focus'"
-                class="slider"
-                v-model="angle"
-                :max="360"
-                :lazy="false"
-              />
+              <Slider showTooltip="'focus'" class="slider" v-model="angle" :max="360" :lazy="false" />
             </div>
           </div>
 
-          <div
-            class="flex flex-col px-4 py-8 mb-0 space-y-8 border-b-8 border-black border-solid border-x-8"
-          >
+          <div class="flex flex-col px-4 py-8 mb-0 space-y-8 border-b-8 border-black border-solid border-x-8">
             <button @click="repeating = !repeating" class="flex flex-row items-center">
-              <div
-                class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black"
-              >
+              <div class="mr-2.5 grid h-5 w-5 place-items-center bg-white outline outline-2 outline-black">
                 <transition>
-                  <svg
-                    v-show="repeating"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="relative top-[-2px] left-[-2px] w-6 h-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="m4.5 12.75 6 6 9-13.5"
-                    />
+                  <svg v-show="repeating" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="relative top-[-2px] left-[-2px] w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
                 </transition>
               </div>

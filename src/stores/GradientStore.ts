@@ -31,14 +31,14 @@ export const useGradientStore = defineStore('gradient', {
       this.mode = selectedMode
     },
     removeStop(stop: Stop) {
-      const index = this.stops.findIndex((e) => e.colour === stop.colour)
+      const index = this.stops.findIndex((e) => e === stop)
       if (index !== -1) {
         this.stops.splice(index, 1)
       }
     },
     addStop() {
       const newStop: Stop = {
-        colour: getRandColour(),
+        colour: getRandColour() as string,
         pos: 75
       }
       this.stops.push(newStop)
