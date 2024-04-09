@@ -20,7 +20,8 @@ const setStopColour = gs.setStopColour
     <div v-for="stop in stops" :key="stop.colour" class="relative py-1 overflow-hidden group">
 
       <div class="relative h-[100px] w-full">
-        <color-picker v-model:pureColor="stop.colour" useType="pure" theme="black" format="hex" class="colorPicker" />
+        <color-picker v-model:pureColor="stop.colour" useType="pure" format="hex" disableAlpha="true"
+          class="colorPicker" />
       </div>
 
       <div class="p-4">
