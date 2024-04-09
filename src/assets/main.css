@@ -7,6 +7,10 @@
   box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.85);
 }
 
+.shadow-main {
+  box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.85);
+}
+
 @font-face {
   font-family: 'Archivo';
   font-style: normal;
@@ -24,26 +28,7 @@ body {
   --slider-handle-ring-color: #000;
   --slider-handle-ring-color: #000;
   --slider-handle-bg: #000;
-  --slider-handle-radius: 4px;
-}
-
-#preview {
-  min-height: 125px;
-  width: 100%;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-@media screen and (min-width: 960px) {
-  #preview {
-    min-height: 250px;
-  }
-}
-
-.shadow-main {
-  box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.85);
+  --slider-handle-radius: 8px;
 }
 
 button {

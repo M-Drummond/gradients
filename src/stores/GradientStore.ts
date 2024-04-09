@@ -26,10 +26,12 @@ export const useGradientStore = defineStore('gradient', {
     }
   },
   actions: {
-    setStopColour(stop) {
-      console.log(stop)
-      stop.colour = event?.target.value
-    },
+    // setStopColour(stop: Stop, event) {
+    //   if (event.target.value) {
+    //     console.log(stop)
+    //     stop.colour = event?.target.value
+    //   }
+    // },
     setMode(selectedMode: string) {
       console.log(selectedMode)
       this.mode = selectedMode

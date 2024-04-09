@@ -20,3 +20,21 @@ defineProps({
     </div>
   </div>
 </template>
+
+
+<style scoped>
+#preview {
+  min-height: 125px;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@media screen and (min-width: 960px) {
+  #preview {
+    min-height: 250px;
+  }
+}
+</style>

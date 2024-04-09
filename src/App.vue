@@ -15,7 +15,7 @@ const gs = useGradientStore()
 const stops = gs.stops
 const repeating = ref(false)
 
-const angle = ref(Math.ceil(Math.round(Math.random() * 360)), 360)
+const angle = ref(Math.round(Math.random() * 360));
 
 const styleObject = computed(() => {
   if (gs.mode === 'linear') {
