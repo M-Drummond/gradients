@@ -1,61 +1,55 @@
 <script setup lang="ts">
-
-import { useGradientStore } from '@/stores/GradientStore';
+import { useGradientStore } from '@/stores/GradientStore'
 import CopyButton from '@/components/CopyButton.vue'
 import RemoveButton from '@/components/RemoveButton.vue'
 
 import Slider from '@vueform/slider'
 
-
-const gs = useGradientStore();
+const gs = useGradientStore()
 const stops = gs.stops
 const addStop = gs.addStop
 const removeStop = gs.removeStop
-
 </script>
 
 <template>
-    <div class="flex flex-col w-full px-4 mb-4 border-8 border-black md:mr-4">
-        <div v-for="stop in  stops" :key="stop.colour" class="relative py-1 overflow-hidden group">
+  <div class="flex flex-col w-full px-4 mb-4 border-8 border-black md:mr-4">
+    <div v-for="stop in stops" :key="stop.colour" class="relative py-1 overflow-hidden group">
+      <div class="relative h-[200px] w-full">
+        <input v-model="stop.colour" type="color" class="colorPicker" />
+      </div>
 
-            <div class="relative h-[200px] w-full">
-                <input v-model="stop.colour" type="color" class="colorPicker" />
-            </div>
+      <div class="p-4">
+        <Slider showTooltip="'focus'" v-model="stop.pos" :max="100" :lazy="false" />
+      </div>
 
-            <div class="p-4">
-                <Slider showTooltip="'focus'" v-model="stop.pos" :max="100" :lazy="false" />
-            </div>
+      <CopyButton :stop />
 
-            <CopyButton :stop />
-
-            <RemoveButton :stop :stops />
-
-        </div>
-
-        <button @click="addStop(stop)"
-            class="py-4 my-4 transition-all border border-black border-solid rounded-lg hover:bg-black hover:text-white add-button left-4 top-4 ">Add
-            Stop
-        </button>
-
+      <RemoveButton :stop :stops />
     </div>
 
+    <button
+      @click="addStop(stop)"
+      class="py-4 my-4 transition-all border border-black border-solid rounded-lg hover:bg-black hover:text-white add-button left-4 top-4"
+    >
+      Add Stop
+    </button>
+  </div>
 </template>
-
 
 <style scoped>
 .copy-button:not(:active) {
-    box-shadow: 4px 4px 0px currentColor
+  box-shadow: 4px 4px 0px currentColor;
 }
 
 .add-button {
-    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.85);
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.85);
 }
 
 .add-button:hover {
-    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.5);
 }
 
 .remove-button {
-    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.85);
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.85);
 }
 </style>
