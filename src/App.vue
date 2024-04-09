@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { ref, computed } from 'vue';
-// import { useGradientStore } from '@/stores/GradientStore.ts'
+import { useGradientStore } from '@/stores/GradientStore.ts'
 
 import PreviewPanel from '@/components/PreviewPanel.vue'
 
@@ -15,12 +15,10 @@ import AppHeader from '@/components/AppHeader.vue'
 
 import NotificationArea from '@/components/NotificationArea.vue'
 
-// const gs = useGradientStore();
-
-// console.log(gs)
-
 import Slider from '@vueform/slider'
 
+const gs = useGradientStore();
+const stops = gs.stops
 const repeating = ref(false)
 
 const angle = ref(145)
@@ -47,17 +45,18 @@ interface stop {
 }
 
 const stopsAsString = computed(() => {
-  return stops.value.map(stop => ` ${stop.colour} ${stop.pos}%`);
+  return stops.map(stop => ` ${stop.colour} ${stop.pos}%`);
 });
 
 
 const stopsAsStringConic = computed(() => {
-  return stops.value.map(stop => ` ${stop.colour} ${stop.pos * 3.6}deg `);
+  return stops.map(stop => ` ${stop.colour} ${stop.pos * 3.6}deg `);
 });
 
 </script>
 
 <script lang="ts">
+
 
 export const mode = ref<string>('linear')
 export const lastCopied = ref("")
@@ -67,23 +66,7 @@ const presetColours = [
   "#b3ff80", '#d36fc5', '#bef3fe', '#c79adf', '#f9b4c5', '#f9edb4', '#e2bcfb', '#7f6fd3', '#b6f7b5', '#b6d7f7', '#1c8cfd'
 ]
 
-
-export const stops = ref([
-  {
-    colour: getRandColour(),
-    pos: 0,
-  },
-  {
-    colour: getRandColour(),
-    pos: 50,
-  },
-  {
-    colour: getRandColour(),
-    pos: 100,
-  }
-])
-
-function getRandColour() {
+export function getRandColour() {
   return presetColours[Math.round(Math.random() * 10)]
 }
 
@@ -97,20 +80,6 @@ export function copy(x) {
   }, 1500);
 }
 
-export function removeStop(stop: stop) {
-  const index = stops.value.findIndex((e) => e.colour === stop.colour);
-  if (index !== -1) {
-    stops.value.splice(index, 1);
-  }
-}
-
-export function addStop() {
-  const newStop: stop = {
-    colour: getRandColour(),
-    pos: 75
-  }
-  stops.value.push(newStop)
-}
 
 </script>
 

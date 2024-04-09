@@ -1,7 +1,16 @@
 <script setup lang="ts">
 
+import { useGradientStore } from '@/stores/GradientStore';
+
+const gs = useGradientStore();
+const stops = gs.stops
+const addStop = gs.addStop
+const removeStop = gs.removeStop
+
 import Slider from '@vueform/slider'
-import { stops, addStop, copy, removeStop } from '../App.vue'
+import { copy } from '../App.vue'
+
+
 
 </script>
 
