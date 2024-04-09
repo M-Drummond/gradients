@@ -42,7 +42,7 @@ const styleObject = computed(() => {
     };
   } else {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}conic-gradient( ${stopsAsStringConic.value}) )`
+      background: `${repeating.value ? 'repeating-' : ''}conic-gradient( ${stopsAsStringConic.value} )`
     };
   }
 });
@@ -78,7 +78,7 @@ const stopsAsString = computed(() => {
 const stopsAsStringConic = computed(() => {
   // format: 
   // linear-gradient(45deg, #fca 25%, #000 25%)
-  return stops.value.map(stop => ` ${stop.colour} ${stop.pos}deg`);
+  return stops.value.map(stop => ` ${stop.colour} ${stop.pos * 3.6}deg `);
 });
 
 
