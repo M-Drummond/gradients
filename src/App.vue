@@ -149,10 +149,12 @@ function addStop() {
 
         <div class="top-0 z-20 flex flex-col order-last w-full md:order-1">
           <div class="px-8 pb-4 border-8 border-black border-solid ">
-            <p class="py-4 mb-12 ">
-              Angle
-            </p>
-            <Slider class="slider" v-model="angle" :max="360" :lazy="false" />
+            <div :class="mode === 'conic' ? 'opacity-50 pointer-events-none' : ''">
+              <p class="py-4 mb-12 ">
+                Angle
+              </p>
+              <Slider class="slider" v-model="angle" :max="360" :lazy="false" />
+            </div>
           </div>
 
           <div class="flex flex-col px-4 pt-4 pb-8 mb-0 space-y-8 border-b-8 border-black border-solid border-x-8">
