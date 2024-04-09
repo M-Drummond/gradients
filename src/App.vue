@@ -31,7 +31,6 @@ const presetColours = [
   "#b3ff80", '#d36fc5', '#bef3fe', '#c79adf', '#f9b4c5', '#f9edb4', '#e2bcfb', '#7f6fd3', '#b6f7b5', '#b6d7f7', '#1c8cfd'
 ]
 
-
 const styleObject = computed(() => {
   if (mode.value === 'linear') {
     return {
@@ -39,11 +38,11 @@ const styleObject = computed(() => {
     };
   } else if (mode.value === 'radial') {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}radial-gradient(${startColour.value} ${midpoint.value}%, ${endColour.value})`
+      background: `${repeating.value ? 'repeating-' : ''}radial-gradient(  ${stopsAsString.value}) `
     };
   } else {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}conic-gradient(${startColour.value} , ${endColour.value})`
+      background: `${repeating.value ? 'repeating-' : ''}conic-gradient( ${stopsAsStringConic.value}) )`
     };
   }
 });
@@ -74,6 +73,14 @@ const stopsAsString = computed(() => {
   // linear-gradient(45deg, #fca 25%, #000 25%)
   return stops.value.map(stop => ` ${stop.colour} ${stop.pos}%`);
 });
+
+
+const stopsAsStringConic = computed(() => {
+  // format: 
+  // linear-gradient(45deg, #fca 25%, #000 25%)
+  return stops.value.map(stop => ` ${stop.colour} ${stop.pos}deg`);
+});
+
 
 function copy(x) {
   console.log(x)
@@ -254,16 +261,7 @@ function addStop() {
   box-shadow: 7px 7px 0px rgba(0, 0, 0, .85);
 }
 
-:root {
-  --slider-connect-bg: #3B82F6;
-  --slider-tooltip-bg: #3B82F6;
-  --slider-handle-ring-color: #3B82F630;
-  --slider-tooltip-bg: #{$startColour.value};
-}
 
-root {
-  --slider-tooltip-bg: #{ sliderStyleObject };
-}
 
 .copy-button {
   @apply absolute z-30 p-2 border border-black border-solid bg-white rounded-lg left-4 top-4 hover:bg-black hover:text-white transition-all;
@@ -273,10 +271,15 @@ root {
   @apply shadow-button;
 }
 
-.copy-button:active {
+button {
+  transition: all;
+}
+
+button:active {
   @apply translate-y-[3px];
   box-shadow: unset;
 }
+
 
 .add-button {
   @apply border border-black py-2 shadow-base my-4 border-solid bg-black rounded-lg left-4 top-4 hover:bg-white hover:text-black text-white transition-all
@@ -287,7 +290,8 @@ root {
 }
 
 .mode-button.active {
-  @apply bg-black text-white
+  @apply bg-black text-white;
+  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, .5)
 }
 </style>
 
