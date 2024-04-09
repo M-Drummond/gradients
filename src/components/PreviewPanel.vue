@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { copy } from '@/App.vue'
-import { computed } from 'vue'
+import { copy } from '@/utils/Copy.ts'
 
 defineProps({
   css: {
@@ -10,15 +9,8 @@ defineProps({
     type: Object,
     required: true
   }
-})
-
-
-
+}) 
 </script>
-
-<script lang="ts">
-</script>
-
 <template>
   <div id="preview" :style="styleObject" class="border-8 border-black border-solid">
     <div class="relative z-20">

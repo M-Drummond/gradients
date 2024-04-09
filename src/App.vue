@@ -15,7 +15,7 @@ const gs = useGradientStore()
 const stops = gs.stops
 const repeating = ref(false)
 
-const angle = ref(145)
+const angle = ref(Math.ceil(Math.round(Math.random() * 360)), 360)
 
 const styleObject = computed(() => {
   if (gs.mode === 'linear') {
@@ -42,9 +42,8 @@ const css = computed(() => {
   } else if (gs.mode === 'conic') {
     return `${repeating.value ? 'repeating-' : ''}conic-gradient(${stopsAsStringConic.value})`;
   }
-  return ''; // Return empty string for invalid mode
+  return '';
 });
-
 
 const stopsAsString = computed(() => {
   return stops.map((stop) => ` ${stop.colour} ${stop.pos}%`)
@@ -77,15 +76,8 @@ export function getRandColour() {
   return presetColours[Math.round(Math.random() * 10)].toString()
 }
 
-export function copy(x: string) {
-  console.log(x)
-  navigator.clipboard.writeText(x)
-  notificationVisible.value = true
-  lastCopied.value = x
-  setTimeout(() => {
-    notificationVisible.value = false
-  }, 1500)
-}
+
+
 </script>
 
 <template>
@@ -96,8 +88,8 @@ export function copy(x: string) {
       class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-b border-black rounded-bl-8 xl:max-w-screen-xl border-x shadow-main">
       <div class="sticky top-0 z-50 bg-white">
         <PreviewPanel :styleObject :css />
-
-        <CodePanel :css />
+        {{ angle }}
+        <CodePanel :css :styleObject />
       </div>
 
       <div id="ui-panel" class="flex flex-col items-stretch mb-4 bg-white border-black md:flex-row">
