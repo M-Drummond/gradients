@@ -55,3 +55,8 @@ button:active {
   @apply translate-y-[3px];
   box-shadow: unset;
 }
+
+.vc-color-wrap.transparent {
+  width: 100% !important ;
+  height: 100% !important ;
+}

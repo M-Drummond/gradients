@@ -88,7 +88,6 @@ export function getRandColour() {
       class="px-2 pb-2 mx-auto font-sans font-bold bg-white border-b border-black rounded-bl-8 xl:max-w-screen-xl border-x shadow-main">
       <div class="sticky top-0 z-50 bg-white">
         <PreviewPanel :styleObject :css />
-        {{ angle }}
         <CodePanel :css :styleObject />
       </div>
 
@@ -96,7 +95,7 @@ export function getRandColour() {
         <div class="top-0 z-20 flex flex-col order-last w-full md:order-1">
           <div class="px-4 pb-4 border-8 border-black border-solid">
             <div :class="gs.mode === 'conic' ? 'opacity-50 pointer-events-none' : ''">
-              <p class="py-4 mb-12">Angle</p>
+              <p class="py-4 mb-2">Angle</p>
               <Slider showTooltip="'focus'" class="slider" v-model="angle" :max="360" :lazy="false" />
             </div>
           </div>
@@ -115,11 +114,13 @@ export function getRandColour() {
             </button>
 
             <ModeButtons />
+
           </div>
           <p class="mt-4 text-xs text-right">&copy; MD {{ new Date().getFullYear() }}</p>
         </div>
 
         <StopList />
+
       </div>
     </main>
     <NotificationArea />

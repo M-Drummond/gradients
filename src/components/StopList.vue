@@ -5,17 +5,22 @@ import RemoveButton from '@/components/RemoveButton.vue'
 
 import Slider from '@vueform/slider'
 
+
 const gs = useGradientStore()
 const stops = gs.stops
-const addStop = gs.addStop 
+const addStop = gs.addStop
+
+const setStopColour = gs.setStopColour
+
 </script>
 
 <template>
-  <div class="flex flex-col w-full px-4 mb-4 border-8 border-black md:mr-4">
-    <div v-for="stop in stops" :key="stop.colour" class="relative py-1 overflow-hidden group">
-      <div class="relative h-[100px] w-full">
-        <input :value="stop.colour" type="color" class="colorPicker" />
+  <div class="flex flex-col w-full px-4 pt-4 mb-4 border-8 border-black md:mr-4">
 
+    <div v-for="stop in stops" :key="stop.colour" class="relative py-1 overflow-hidden group">
+
+      <div class="relative h-[100px] w-full">
+        <color-picker v-model:pureColor="stop.colour" useType="pure" theme="black" format="hex" class="colorPicker" />
       </div>
 
       <div class="p-4">
@@ -28,9 +33,10 @@ const addStop = gs.addStop
     </div>
 
     <button @click="addStop(stop)"
-      class="py-4 my-4 transition-all border border-black border-solid rounded-lg hover:bg-black hover:text-white add-button left-4 top-4">
+      class="w-full py-4 my-4 transition-all border border-black border-solid rounded-lg hover:bg-black hover:text-white add-button left-4 top-4">
       Add Stop
     </button>
+
   </div>
 </template>
 
@@ -38,8 +44,6 @@ const addStop = gs.addStop
 .colorPicker {
   @apply absolute inset-0 mt-0 appearance-none border-0 p-0 m-0;
   border: 0;
-  /* width: 110%; */
-  /* left: -2%; */
   height: 100%;
   width: 100%;
   appearance: auto;

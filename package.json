@@ -18,6 +18,7 @@
     "@vueform/vueform": "^1.9.3",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
+    "vue3-colorpicker": "^2.3.0",
     "vuetify": "^3.5.14"
   },
   "devDependencies": {
