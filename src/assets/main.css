@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.shadow-base {
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.85);
+}
+
 @font-face {
   font-family: 'Archivo';
   font-style: normal;
@@ -52,50 +56,16 @@ body {
   color: initial;
 }
 
-.shadow-base {
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.85);
-}
-
-.shadow-button {
-  box-shadow: 4px 4px 0px currentColor;
-}
-
 .shadow-main {
   box-shadow: 7px 7px 0px rgba(0, 0, 0, 0.85);
 }
 
-.copy-button {
-  @apply absolute z-30 p-2 border border-black border-solid bg-white rounded-lg top-4 hover:bg-black hover:text-white transition-all;
-}
-
-.copy-button:not(:active) {
-  @apply shadow-button;
-}
-
 button {
   transition: all;
-  @apply text-xs md:text-base;
+  @apply text-xs md:text-base select-none;
 }
 
 button:active {
   @apply translate-y-[3px];
   box-shadow: unset;
-}
-
-.add-button {
-  @apply border border-black py-2 shadow-base my-4 border-solid bg-black rounded-lg left-4 top-4 hover:bg-white hover:text-black text-white transition-all;
-  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.5);
-}
-
-.mode-button {
-  @apply border p-4 w-full shadow-base border-black border-solid bg-white rounded-lg left-4 top-4 hover:bg-black hover:text-white transition-all;
-}
-
-.mode-button.active {
-  @apply bg-black text-white;
-  box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.5);
-}
-
-.remove-button {
-  @apply top-4 bg-white p-1 border border-black shadow-base rounded-lg absolute transition-all;
 }

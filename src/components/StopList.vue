@@ -1,19 +1,18 @@
 <script setup lang="ts">
 
 import { useGradientStore } from '@/stores/GradientStore';
+import CopyButton from '@/components/CopyButton.vue'
+import RemoveButton from '@/components/RemoveButton.vue'
+
+import Slider from '@vueform/slider'
+
 
 const gs = useGradientStore();
 const stops = gs.stops
 const addStop = gs.addStop
 const removeStop = gs.removeStop
 
-import Slider from '@vueform/slider'
-import { copy } from '../App.vue'
-
-
-
 </script>
-
 
 <template>
     <div class="flex flex-col w-full px-4 mb-4 border-8 border-black md:mr-4">
@@ -27,21 +26,15 @@ import { copy } from '../App.vue'
                 <Slider showTooltip="'focus'" v-model="stop.pos" :max="100" :lazy="false" />
             </div>
 
-            <button @click="copy(stop.colour)" class="copy-button left-[-25%] group-hover:left-4" v-text="stop.colour">
-            </button>
+            <CopyButton :stop />
 
-            <button v-if="stops.length >= 1" @click="removeStop(stop)"
-                class="remove-button   right-[-15%] group-hover:right-4">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                </svg>
-
-            </button>
+            <RemoveButton :stop :stops />
 
         </div>
 
-        <button @click="addStop(stop)" class="add-button">Add Stop
+        <button @click="addStop(stop)"
+            class="py-4 my-4 transition-all border border-black border-solid rounded-lg hover:bg-black hover:text-white add-button left-4 top-4 ">Add
+            Stop
         </button>
 
     </div>
@@ -49,4 +42,20 @@ import { copy } from '../App.vue'
 </template>
 
 
-<style scoped></style>
+<style scoped>
+.copy-button:not(:active) {
+    box-shadow: 4px 4px 0px currentColor
+}
+
+.add-button {
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.85);
+}
+
+.add-button:hover {
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.5);
+}
+
+.remove-button {
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.85);
+}
+</style>

@@ -1,18 +1,13 @@
 <script setup lang="ts">
 
 import { ref, computed } from 'vue';
-import { useGradientStore } from '@/stores/GradientStore.ts'
+import { useGradientStore } from '@/stores/GradientStore'
 
 import PreviewPanel from '@/components/PreviewPanel.vue'
-
 import CodePanel from '@/components/CodePanel.vue'
-
 import StopList from '@/components/StopList.vue'
-
 import ModeButtons from '@/components/ModeButtons.vue'
-
 import AppHeader from '@/components/AppHeader.vue'
-
 import NotificationArea from '@/components/NotificationArea.vue'
 
 import Slider from '@vueform/slider'
@@ -24,25 +19,24 @@ const repeating = ref(false)
 const angle = ref(145)
 
 const styleObject = computed(() => {
-  if (mode.value === 'linear') {
+  if (gs.mode === 'linear') {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}linear-gradient(${angle.value}deg,  ${stopsAsString.value})`
+      background: `${repeating.value ? 'repeating-' : ''}linear-gradient(${angle.value}deg, ${stopsAsString.value})`
     };
-  } else if (mode.value === 'radial') {
+  } else if (gs.mode === 'radial') {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}radial-gradient(  ${stopsAsString.value}) `
+      background: `${repeating.value ? 'repeating-' : ''}radial-gradient(${stopsAsString.value})`
     };
-  } else {
+  } else if (gs.mode === 'conic') {
     return {
-      background: `${repeating.value ? 'repeating-' : ''}conic-gradient( ${stopsAsStringConic.value} )`
+      background: `${repeating.value ? 'repeating-' : ''}conic-gradient(${stopsAsStringConic.value})`
     };
   }
+
+  return {};
+
 });
 
-interface stop {
-  pos: Number
-  colour: String
-}
 
 const stopsAsString = computed(() => {
   return stops.map(stop => ` ${stop.colour} ${stop.pos}%`);
@@ -57,8 +51,6 @@ const stopsAsStringConic = computed(() => {
 
 <script lang="ts">
 
-
-export const mode = ref<string>('linear')
 export const lastCopied = ref("")
 export const notificationVisible = ref(false)
 
@@ -67,7 +59,7 @@ const presetColours = [
 ]
 
 export function getRandColour() {
-  return presetColours[Math.round(Math.random() * 10)]
+  return presetColours[Math.round(Math.random() * 10)].toString()
 }
 
 export function copy(x) {
@@ -80,13 +72,13 @@ export function copy(x) {
   }, 1500);
 }
 
-
 </script>
 
 <template>
 
 
   <div class="h-full min-h-screen px-2 pb-8 font-sans font-bold md:pt-2 md:px-0 frame" :style="styleObject">
+
 
     <AppHeader />
 
@@ -106,7 +98,7 @@ export function copy(x) {
 
         <div class="top-0 z-20 flex flex-col order-last w-full md:order-1">
           <div class="px-4 pb-4 border-8 border-black border-solid ">
-            <div :class="mode === 'conic' ? 'opacity-50 pointer-events-none' : ''">
+            <div :class="gs.mode === 'conic' ? 'opacity-50 pointer-events-none' : ''">
               <p class="py-4 mb-12 ">
                 Angle
               </p>

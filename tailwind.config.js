@@ -10,7 +10,9 @@ export default {
   ],
   theme: {
     boxShadow: {
-      base: 'box-shadow: 4px 4px 0 0 #000'
+      base: 'box-shadow: 4px 4px 0 0 #000',
+      button: 'box-shadow: 4px 4px 0px currentColor',
+      'button-hover': 'box-shadow: 4px 4px 0 0 rgba(0,0,0, .5'
     },
     extend: {
       fontFamily: {
