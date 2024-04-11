@@ -17,29 +17,26 @@ describe('Gradient Store', () => {
     expect(gs.getMinPos).toReturnWith
   })
 
-  it('add a new stop with random color and minimum position', () => {
+  it('add a new stop', () => {
     const store = useGradientStore()
 
-    // Mock the external helper function
-    const mockColour = 'mockColour'
-    const mockPosition = 50 // Assuming the minimum position is 50
-    getRandColour(mockColour)
+    const stopsBeforeAdd = store.stops.slice()
 
-    // Call the addStop method
     store.addStop()
 
-    const stops = store.stops
+    // Get the stops array after removing a stop
+    const stopsAfterAdd = store.stops
 
-    // Assert that a new stop is added with the expected color and position
-    expect(stops).toHaveLength(4)
-    expect(stops[3]).toHaveProperty('colour')
-    expect(stops[3]).toHaveProperty('pos')
+    // Assert that the length of the stops array has increased by 1 and has the corect properties
+    expect(stopsAfterAdd.length).toBe(stopsBeforeAdd.length + 1)
+    expect(stopsAfterAdd[stopsAfterAdd.length - 1]).toHaveProperty('colour')
+    expect(stopsAfterAdd[stopsAfterAdd.length - 1]).toHaveProperty('pos')
   })
   it('should reduce the length of stops array by 1 when removing a stop', () => {
     const store = useGradientStore()
 
     // Get the stops array before removing a stop
-    const stopsBeforeRemove = store.stops.slice() // Copy the stops array
+    const stopsBeforeRemove = store.stops.slice()
 
     // Call the removeStop method
     store.removeStop(stopsBeforeRemove[1])
