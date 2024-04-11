@@ -52,6 +52,7 @@ const stopsAsString = computed(() => {
 const stopsAsStringConic = computed(() => {
   return stops.map((stop) => ` ${stop.colour} ${stop.pos * 3.6}deg `)
 })
+
 </script>
 
 <script lang="ts">
@@ -75,8 +76,6 @@ const presetColours = [
 export function getRandColour() {
   return presetColours[Math.round(Math.random() * 10)].toString()
 }
-
-
 
 </script>
 
