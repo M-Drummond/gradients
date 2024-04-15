@@ -7,9 +7,14 @@ describe('Gradient Store', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
-
-  it('mode is set to a string', () => {
+  it('stops array is present', () => {
     const gs = useGradientStore()
+    const stops = gs.stops
+    expect(stops.length).toBeGreaterThan(1)
+  })
+  it('mode is set and able to be set to a string', () => {
+    const gs = useGradientStore()
+    gs.setMode('testString')
     expect(gs.mode).toBeTypeOf('string')
   })
   it('getMinPos returns != null', () => {
@@ -20,11 +25,13 @@ describe('Gradient Store', () => {
   it('add a new stop', () => {
     const store = useGradientStore()
 
+    // get a copy of the array in the store
     const stopsBeforeAdd = store.stops.slice()
 
+    // add a stop to the stored stops array
     store.addStop()
 
-    // Get the stops array after removing a stop
+    // check the length of the items in the stored stops array
     const stopsAfterAdd = store.stops
 
     // Assert that the length of the stops array has increased by 1 and has the corect properties
